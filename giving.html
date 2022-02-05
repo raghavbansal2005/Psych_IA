@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Psych</title>
 </head>
@@ -13,108 +14,102 @@
 
 
 
-	.list{
+	.list {
 		margin-top: 22%;
 		width: 100%;
 		margin-left: 14%;
 	}
-	input{
-		text-transform:  uppercase;
+
+	input {
+		text-transform: uppercase;
 		text-align: center;
 		font-size: 45px;
 		margin-left: 66px;
-		;	}
-		.in{
-			margin-right: 15px;
-		}
-		.container {
-			width: 80%;
-			margin-left: 10%;
-			margin-top: 120px;
-		}
-		input[type="text"]:disabled {
-			background: white;
-			border: 1px solid black;
-			color: black;
-		}
+		;
+	}
+
+	.in {
+		margin-right: 15px;
+	}
+
+	.container {
+		width: 80%;
+		margin-left: 10%;
+		margin-top: 120px;
+	}
+
+	input[type="text"]:disabled {
+		background: white;
+		border: 1px solid black;
+		color: black;
+	}
+</style>
+
+<body>
+	<div id="clock">
+		<p id="seconds">5</p>
+	</div>
+	<br>
 
 
-	</style>
-	<body>
-		<div id="clock">
-			<p id="seconds">5</p>
-		</div>
-		<br>
-
-
-		<div class="container">
-			<input type="text" id="first" maxlength="1" size="1" disabled="true" />
-			<input type="text" id="2" maxlength="1" size="1" disabled="true" />
-			<input type="text" id="3" maxlength="1" size="1" disabled="true" />
-			<input type="text" id="4" maxlength="1" size="1" disabled="true" />
-			<input type="text" id="5" maxlength="1" size="1" disabled="true" />
-			<input type="text" id="6" maxlength="1" size="1" disabled="true" />
-			<input type="text" id="last" size="1" maxlength="1" disabled="true" />
-		</div>
+	<div class="container">
+		<input type="text" id="first" maxlength="1" size="1" disabled="true" />
+		<input type="text" id="2" maxlength="1" size="1" disabled="true" />
+		<input type="text" id="3" maxlength="1" size="1" disabled="true" />
+		<input type="text" id="4" maxlength="1" size="1" disabled="true" />
+		<input type="text" id="5" maxlength="1" size="1" disabled="true" />
+		<input type="text" id="6" maxlength="1" size="1" disabled="true" />
+		<input type="text" id="last" size="1" maxlength="1" disabled="true" />
+	</div>
 
 
 
 
 
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 
 
-			function shuffle(array) {
-				let currentIndex = array.length,  randomIndex;
-				while (currentIndex != 0) {
-					randomIndex = Math.floor(Math.random() * currentIndex);
-					currentIndex--;
-					[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-				}
-				return array;
+		function shuffle(array) {
+			let currentIndex = array.length, randomIndex;
+			while (currentIndex != 0) {
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex--;
+				[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
 			}
+			return array;
+		}
 
-			var arr = ["F","K","L","M","R","X","Q"];
-			shuffle(arr);
+		var arr = ["F", "K", "L", "M", "R", "X", "Q"];
+		shuffle(arr);
 
-			document.getElementById("first").value = arr[0]
-			document.getElementById("2").value = arr[1]
-			document.getElementById("3").value = arr[2]
-			document.getElementById("4").value = arr[3]
-			document.getElementById("5").value = arr[4]
-			document.getElementById("6").value = arr[5]
-			document.getElementById("last").value = arr[6]
+		document.getElementById("first").value = arr[0]
+		document.getElementById("2").value = arr[1]
+		document.getElementById("3").value = arr[2]
+		document.getElementById("4").value = arr[3]
+		document.getElementById("5").value = arr[4]
+		document.getElementById("6").value = arr[5]
+		document.getElementById("last").value = arr[6]
 
+		localStorage.setItem('arr',arr);
 
-			let username = 'Max Brown';
-			// Set a Cookie
-			function setCookie(cName, cValue, expDays) {
-				let date = new Date();
-				date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
-				const expires = "expires=" + date.toUTCString();
-				document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+		localStorage.setItem("scores",[0]); //initialize at start of each participant
+
+		var start = Date.now();
+		var interval = setInterval(function () {
+			var delta = Date.now() - start;
+			let on = Number((5 - (delta / 1000)).toFixed(4));
+			document.getElementById("seconds").innerHTML = Number((5 - (delta / 1000)).toFixed(4));
+			if (on < 0) {
+				clearInterval(interval);
+				document.getElementById("seconds").innerHTML = "0";
+				window.location.href = "answering.html";
 			}
-			// Apply setCookie
-			setCookie('username', username, 30);
-
-			var start = Date.now();
-			var interval = setInterval(function() {
-				var delta = Date.now() - start;
-				let on = Number((5- (delta / 1000)).toFixed(4));
-				document.getElementById("seconds").innerHTML = Number((5- (delta / 1000)).toFixed(4));
-				if(on < 0){
-					clearInterval(interval);
-					document.getElementById("seconds").innerHTML = "0";
-					const res = [document.getElementById("first").value.toUpperCase(),document.getElementById("2").value.toUpperCase(),document.getElementById("3").value.toUpperCase(),document.getElementById("4").value.toUpperCase(),document.getElementById("5").value.toUpperCase(),document.getElementById("6").value.toUpperCase(),document.getElementById("last").value.toUpperCase()];
-					console.log(res);
-				}
-			}, 100);
+		}, 100);
 
 
-		</script>
+	</script>
 
-	</body>
-	</html>
+</body>
 
-
+</html>
