@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psych</title>
+</head>
+<style type="text/css">
+	p {
+		white-space: pre;
+		font-family: monospace;
+		font-size: 60px;
+		text-align: center;
+	}
+
+
+
+	.list{
+		margin-top: 22%;
+		width: 100%;
+		margin-left: 14%;
+	}
+	input{
+		text-transform:  uppercase;
+		text-align: center;
+		font-size: 45px;
+		margin-left: 66px;
+;	}
+	.in{
+		margin-right: 15px;
+	}
+	.container {
+		width: 80%;
+		margin-left: 10%;
+		margin-top: 120px;
+		display: none;
+	}
+	.container_two{
+		width: 80%;
+		margin-left: 10%;
+	}
+
+</style>
+<body>
+	<div id="clock">
+		<p id="seconds">5</p>
+	</div>
+	<br>
+
+
+	<div class="container_two">
+		<input type="text" id="first" maxlength="1" size="1" />
+		<input type="text" id="2" maxlength="1" size="1" />
+		<input type="text" id="3" maxlength="1" size="1" />
+		<input type="text" id="4" maxlength="1" size="1" />
+		<input type="text" id="5" maxlength="1" size="1" />
+		<input type="text" id="6" maxlength="1" size="1" />
+		<input type="text" id="last" size="1" maxlength="1" />
+	</div>
+
+	<div class="container">
+		<input type="text" id="first" maxlength="1" size="1" />
+		<input type="text" id="2" maxlength="1" size="1" />
+		<input type="text" id="3" maxlength="1" size="1" />
+		<input type="text" id="4" maxlength="1" size="1" />
+		<input type="text" id="5" maxlength="1" size="1" />
+		<input type="text" id="6" maxlength="1" size="1" />
+		<input type="text" id="last" size="1" maxlength="1" />
+	</div>
+
+
+
+
+
+
+	<script type="text/javascript">
+
+
+
+		document.getElementById("first").focus();
+
+		var start = Date.now();
+		var interval = setInterval(function() {
+			var delta = Date.now() - start;
+			let on = Number((7- (delta / 1000)).toFixed(4));
+			document.getElementById("seconds").innerHTML = Number((7- (delta / 1000)).toFixed(4));
+			if(on < 0){
+				clearInterval(interval);
+				document.getElementById("seconds").innerHTML = "0";
+				const res = [document.getElementById("first").value.toUpperCase(),document.getElementById("2").value.toUpperCase(),document.getElementById("3").value.toUpperCase(),document.getElementById("4").value.toUpperCase(),document.getElementById("5").value.toUpperCase(),document.getElementById("6").value.toUpperCase(),document.getElementById("last").value.toUpperCase()];
+				console.log(res);
+			}
+		}, 100);
+
+		
+		var container = document.getElementsByClassName("container")[0];
+		container.onkeyup = function(e) {
+			var target = e.srcElement || e.target;
+			var maxLength = parseInt(target.attributes["maxlength"].value, 10);
+			var myLength = target.value.length;
+			if (myLength >= maxLength) {
+				var next = target;
+				while (next = next.nextElementSibling) {
+					if (next == null)
+						break;
+					if (next.tagName.toLowerCase() === "input") {
+						next.focus();
+						break;
+					}
+				}
+			}
+			else if (myLength === 0) {
+				var previous = target;
+				while (previous = previous.previousElementSibling) {
+					if (previous == null)
+						break;
+					if (previous.tagName.toLowerCase() === "input") {
+						previous.focus();
+						break;
+					}
+				}
+			}
+
+
+
+		}
+	</script>
+
+</body>
+</html>
+
+
